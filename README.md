@@ -13,13 +13,14 @@ Ce plugin ajoute une fonctionnalité de redimensionnement à la sidebar de l'int
 
 ## Structure
 
+```
 up-wp-resize-admin-aside/
 └── assets/
     └── js/
         └── flex-admin-aside.js
 └── up-wp-resize-admin-aside.php
 └── README.md
-
+```
 ## Fonctionnalités
 
 - Ajout d'une poignée de redimensionnement sur la sidebar admin
