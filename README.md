@@ -4,7 +4,7 @@ Un plugin WordPress simple qui permet de redimensionner la sidebar de l'interfac
 
 ## Description
 
-Ce plugin ajoute une fonctionnalité de redimensionnement à la sidebar de l'interface d'administration WordPress. Il permet aux utilisateurs d'ajuster la largeur de la sidebar selon leurs préférences, entre 280px et 600px.
+Ce plugin ajoute une fonctionnalité de redimensionnement à la sidebar de l'interface d'administration WordPress. Il permet aux utilisateurs d'ajuster la largeur de la sidebar selon leurs préférences, entre 280px et 900px.
 
 ## Installation
 
@@ -12,11 +12,12 @@ Ce plugin ajoute une fonctionnalité de redimensionnement à la sidebar de l'int
 2. Activez le plugin dans le menu 'Plugins' de WordPress
 
 ## Structure
+
 up-wp-resize-admin-aside/
-├── assets/
-│ └── js/
-│ └── flex-admin-aside.js
-├── up-wp-resize-admin-aside.php
+└── assets/
+    └── js/
+        └── flex-admin-aside.js
+└── up-wp-resize-admin-aside.php
 └── README.md
 
 ## Fonctionnalités
