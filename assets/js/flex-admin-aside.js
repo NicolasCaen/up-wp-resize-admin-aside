@@ -1,4 +1,7 @@
 (function() {
+    const STORAGE_KEY = 'wp_admin_sidebar_width';
+    const DEFAULT_WIDTH = 280;
+
     function injectStyles() {
         const styles = `
             .interface-interface-skeleton__sidebar {
@@ -40,12 +43,29 @@
         document.head.appendChild(styleSheet);
     }
 
+    function setSidebarWidth(width) {
+        const sidebar = document.querySelector('.interface-interface-skeleton__sidebar');
+        const complementaryArea = document.querySelector('.interface-complementary-area');
+        const complementaryAreaFill = document.querySelector('.interface-complementary-area__fill');
+
+        if (sidebar) {
+            sidebar.style.width = `${width}px`;
+            if (complementaryArea) {
+                complementaryArea.style.width = `${width}px`;
+            }
+            if (complementaryAreaFill) {
+                complementaryAreaFill.style.width = `${width}px`;
+            }
+        }
+    }
+
     function initResizer() {
         const sidebar = document.querySelector('.interface-interface-skeleton__sidebar');
         if (!sidebar) return;
 
-        const complementaryArea = document.querySelector('.interface-complementary-area');
-        const complementaryAreaFill = document.querySelector('.interface-complementary-area__fill');
+        // Restaurer la largeur sauvegardée
+        const savedWidth = parseInt(localStorage.getItem(STORAGE_KEY)) || DEFAULT_WIDTH;
+        setSidebarWidth(savedWidth);
 
         const resizer = document.createElement('div');
         resizer.className = 'sidebar-resizer';
@@ -68,13 +88,7 @@
             
             if (width >= 280 && width <= 900) {
                 requestAnimationFrame(() => {
-                    sidebar.style.width = `${width}px`;
-                    if (complementaryArea) {
-                        complementaryArea.style.width = `${width}px`;
-                    }
-                    if (complementaryAreaFill) {
-                        complementaryAreaFill.style.width = `${width}px`;
-                    }
+                    setSidebarWidth(width);
                 });
             }
         });
@@ -83,11 +97,12 @@
             if (isResizing) {
                 isResizing = false;
                 document.body.classList.remove('is-resizing');
+                // Sauvegarder la nouvelle largeur
+                localStorage.setItem(STORAGE_KEY, sidebar.offsetWidth);
             }
         });
     }
 
-    // Attendre que le DOM soit complètement chargé
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             injectStyles();
@@ -98,7 +113,6 @@
         initResizer();
     }
 
-    // Réinitialiser en cas de changement dynamique du DOM
     const observer = new MutationObserver(function(mutations) {
         if (!document.querySelector('.sidebar-resizer')) {
             initResizer();
